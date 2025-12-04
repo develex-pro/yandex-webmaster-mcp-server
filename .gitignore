@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+.claude/settings.local.json
+node_modules/
+build/
+secret.md
+.env
+.env.*
+*.log
+.DS_Store

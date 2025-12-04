@@ -1,0 +1,57 @@
+{
+  "name": "yandex-webmaster-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Yandex Webmaster API - site management, indexing, search queries, sitemaps, and more",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./build/index.js",
+    "test": "node --import tsx ./node_modules/mocha/bin/_mocha 'tests/utils.test.ts'",
+    "test:integration": "node --env-file=.env --import tsx ./node_modules/mocha/bin/_mocha 'tests/integration.test.ts'",
+    "test:all": "node --env-file=.env --import tsx ./node_modules/mocha/bin/_mocha 'tests/**/*.test.ts'",
+    "inspector": "npx @modelcontextprotocol/inspector node ./build/index.js",
+    "lint": "eslint src tests",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "yandex",
+    "webmaster",
+    "mcp",
+    "server",
+    "seo",
+    "indexing"
+  ],
+  "author": "Artem Smirnov",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/develex-pro/yandex-webmaster-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/develex-pro/yandex-webmaster-mcp-server/issues"
+  },
+  "homepage": "https://github.com/develex-pro/yandex-webmaster-mcp-server#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
+    "@typescript-eslint/parser": "^8.48.1",
+    "chai": "^6.2.1",
+    "eslint": "^9.39.1",
+    "mocha": "^11.7.5",
+    "prettier": "^3.7.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1"
+  }
+}
