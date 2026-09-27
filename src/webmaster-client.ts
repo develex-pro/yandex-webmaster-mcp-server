@@ -147,8 +147,11 @@ export class YandexWebmasterClient {
       'hostId',
       'verificationType',
     ]);
-    const url = this.hostUrl(userId, hostId, '/verification');
-    return this.makeRequest(url, { method: 'POST', body: { verification_type: verificationType } });
+    // verification_type must be a query parameter; in the body the API ignores it
+    // and answers 400 FIELD_VALIDATION_ERROR.
+    const query = new URLSearchParams({ verification_type: verificationType });
+    const url = this.hostUrl(userId, hostId, `/verification?${query}`);
+    return this.makeRequest(url, { method: 'POST' });
   }
 
   async getVerificationStatus(userId: string, hostId: string): Promise<unknown> {
@@ -277,7 +280,7 @@ export class YandexWebmasterClient {
 
   async requestRecrawl(userId: string, hostId: string, pageUrl: string): Promise<unknown> {
     this.validateRequired({ userId, hostId, pageUrl }, ['userId', 'hostId', 'pageUrl']);
-    const url = this.hostUrl(userId, hostId, '/recrawl');
+    const url = this.hostUrl(userId, hostId, '/recrawl/queue');
     return this.makeRequest(url, { method: 'POST', body: { url: pageUrl } });
   }
 
@@ -295,14 +298,14 @@ export class YandexWebmasterClient {
     const url = this.hostUrl(
       userId,
       hostId,
-      `/recrawl/tasks${queryString ? '?' + queryString : ''}`
+      `/recrawl/queue${queryString ? '?' + queryString : ''}`
     );
     return this.makeRequest(url);
   }
 
   async getRecrawlTaskStatus(userId: string, hostId: string, taskId: string): Promise<unknown> {
     this.validateRequired({ userId, hostId, taskId }, ['userId', 'hostId', 'taskId']);
-    const url = this.hostUrl(userId, hostId, `/recrawl/tasks/${taskId}`);
+    const url = this.hostUrl(userId, hostId, `/recrawl/queue/${taskId}`);
     return this.makeRequest(url);
   }
 
